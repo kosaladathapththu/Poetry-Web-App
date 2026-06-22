@@ -3,103 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Poems — R.Anudi Nilma Wijayapriya</title>
+  <title>Poems & Publications — R.Anudi Nilma Wijayapriya</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .page-hero {
-      padding: 5rem 0 3.5rem;
-      border-bottom: 1px solid var(--border);
+    .page-hero { padding: 5rem 0 4rem; }
+    .collection-head { display:flex; align-items:end; justify-content:space-between; gap:2rem; margin-bottom:2.25rem; }
+    .collection-head p:last-child { max-width:500px; }
+    .sinhala { font-family:"Noto Sans Sinhala", var(--font-sans); }
+
+    .publication-grid { display:flex; flex-direction:column; gap:2rem; }
+    .poem-feature {
+      --feature-accent:#244fc7;
+      display:grid;
+      grid-template-columns:minmax(300px,.78fr) minmax(390px,1.22fr);
+      min-height:620px;
+      border:1px solid var(--border);
+      border-radius:28px;
+      background:rgba(255,255,255,.9);
+      box-shadow:var(--shadow-sm);
+      overflow:hidden;
     }
+    .poem-feature:nth-child(even) { grid-template-columns:minmax(390px,1.22fr) minmax(300px,.78fr); }
+    .poem-feature:nth-child(even) .poem-poster { order:2; }
+    .poem-feature--midnight { --feature-accent:#3944b7; }
+    .poem-feature--mono { --feature-accent:#485267; }
+    .poem-feature--paper { --feature-accent:#c22d38; }
+    .poem-feature--ember { --feature-accent:#9f1d2c; }
 
-    /* Filter bar */
-    .filter-bar {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin: 2.5rem 0 3rem;
+    .poem-poster {
+      position:relative;
+      min-height:620px;
+      border:0;
+      padding:0;
+      background:#08102d;
+      cursor:zoom-in;
+      overflow:hidden;
     }
+    .poem-poster img { width:100%; height:100%; position:absolute; inset:0; object-fit:cover; transition:transform .5s ease,filter .4s ease; }
+    .poem-poster:hover img { transform:scale(1.025); filter:brightness(.88); }
+    .poem-poster .expand-mark { position:absolute; right:1.2rem; bottom:1.2rem; z-index:2; display:grid; place-items:center; width:46px; height:46px; border:1px solid rgba(255,255,255,.4); border-radius:13px; color:white; background:rgba(5,12,34,.45); backdrop-filter:blur(10px); font-size:1.1rem; }
 
-    .filter-btn {
-      padding: 0.4rem 1.1rem;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.2s;
+    .poem-copy { position:relative; display:flex; flex-direction:column; justify-content:center; padding:clamp(2rem,5vw,4.25rem); overflow:hidden; }
+    .poem-copy::before { content:"“"; position:absolute; right:1.25rem; top:-3rem; color:rgba(36,79,199,.06); font-family:Georgia,serif; font-size:15rem; line-height:1; }
+    .poem-number { color:var(--feature-accent); font-size:.72rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; }
+    .poem-copy h3 { margin:.75rem 0 1.5rem; color:var(--navy); font-family:"Noto Sans Sinhala",sans-serif; font-size:clamp(1.6rem,3vw,2.5rem); line-height:1.4; letter-spacing:0; }
+    .poem-copy .mini-divider { width:54px; height:3px; margin-bottom:1.7rem; border-radius:99px; background:var(--feature-accent); }
+    .stanza { margin-bottom:1.25rem; color:#35415f; font-family:"Noto Sans Sinhala",sans-serif; font-size:clamp(.86rem,1.3vw,1rem); line-height:2.05; white-space:pre-line; }
+    .poem-credit { margin-top:.65rem; padding-top:1.2rem; border-top:1px solid var(--border); color:#647098; font-family:"Noto Sans Sinhala",sans-serif; font-size:.72rem; line-height:1.8; }
+
+    .document-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+    .document-card { display:grid; grid-template-columns:52px 1fr auto; align-items:center; gap:1rem; min-height:105px; padding:1.15rem; border:1px solid var(--border); border-radius:18px; background:rgba(255,255,255,.82); box-shadow:var(--shadow-sm); transition:border-color .2s ease,transform .2s ease; }
+    .document-card:hover { border-color:#9db7ff; transform:translateY(-3px); }
+    .document-icon { display:grid; place-items:center; width:52px; height:52px; border-radius:14px; color:white; background:linear-gradient(135deg,var(--royal-bright),var(--royal)); font-size:.67rem; font-weight:600; letter-spacing:.04em; }
+    .document-card h3 { font-family:"Noto Sans Sinhala",var(--font-serif); font-size:1rem; line-height:1.55; letter-spacing:0; }
+    .document-card p { font-size:.72rem; margin-top:.2rem; }
+    .document-action { display:grid; place-items:center; width:38px; height:38px; border-radius:10px; color:var(--royal); background:var(--sky); font-size:1.1rem; }
+
+    .image-modal { position:fixed; inset:0; z-index:1000; display:none; place-items:center; padding:1.5rem; background:rgba(3,9,28,.92); backdrop-filter:blur(12px); }
+    .image-modal.open { display:grid; }
+    .image-modal img { max-width:min(1100px,94vw); max-height:90vh; border-radius:14px; box-shadow:0 30px 100px rgba(0,0,0,.5); }
+    .modal-close { position:fixed; top:1.25rem; right:1.25rem; display:grid; place-items:center; width:46px; height:46px; border:1px solid rgba(255,255,255,.25); border-radius:50%; color:white; background:rgba(255,255,255,.1); font-size:1.5rem; cursor:pointer; }
+
+    @media (max-width:760px) {
+      .collection-head { align-items:start; flex-direction:column; gap:.75rem; }
+      .document-list { grid-template-columns:1fr; }
+      .poem-feature,.poem-feature:nth-child(even) { grid-template-columns:1fr; }
+      .poem-feature:nth-child(even) .poem-poster { order:0; }
+      .poem-poster { min-height:min(120vw,560px); }
+      .poem-copy { padding:2rem 1.35rem 2.4rem; }
     }
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--brown);
-      color: var(--white);
-      border-color: var(--brown);
-    }
-
-    /* Poem list */
-    .poem-list { display: flex; flex-direction: column; gap: 0; }
-
-    .poem-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      padding: 1.6rem 0;
-      border-bottom: 1px solid var(--border);
-      gap: 2rem;
-      text-decoration: none;
-      transition: padding-left 0.2s;
-    }
-    .poem-row:hover { padding-left: 0.5rem; }
-
-    .poem-row:first-child { border-top: 1px solid var(--border); }
-
-    .poem-row-meta { display: flex; align-items: baseline; gap: 1.2rem; flex-wrap: wrap; }
-
-    .poem-row h3 {
-      font-size: 1.35rem;
-      color: var(--brown-dark);
-      transition: color 0.2s;
-    }
-    .poem-row:hover h3 { color: var(--accent); }
-
-    .poem-row .tag {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .poem-row .excerpt {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 0.92rem;
-      color: var(--brown-light);
-      margin-top: 0.3rem;
-    }
-
-    .poem-row .date {
-      font-size: 0.78rem;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .poem-row .arrow {
-      font-size: 1rem;
-      color: var(--accent);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .poem-row:hover .arrow { opacity: 1; }
-
-    /* hidden for filter */
-    .poem-row[data-hidden="true"] { display: none; }
   </style>
 </head>
 <body>
-
   <nav>
     <a href="index.html" class="nav-logo">R.Anudi Nilma Wijayapriya</a>
     <ul class="nav-links" id="navLinks">
@@ -108,136 +85,176 @@
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- PAGE HERO -->
-  <div class="page-hero" style="background: var(--cream-dark);">
+  <header class="page-hero">
     <div class="container">
-      <p class="section-label">All Writings</p>
-      <h1>Poems</h1>
+      <p class="section-label">Selected writings</p>
+      <h1>Poems & Publications</h1>
       <div class="divider"></div>
-      <p style="max-width:480px; margin-top:0.5rem;">
-        A collection of verses — some whispering, some shouting, all honest.
-      </p>
+      <p style="max-width:560px;margin-top:.75rem;">Poetry in Sinhala and English — original manuscripts and selected published works.</p>
     </div>
+  </header>
+
+  <main>
+    <section class="section-sm">
+      <div class="container">
+        <div class="collection-head">
+          <div><p class="section-label">Visual archive</p><h2>Published Works</h2></div>
+          <p>Selected Sinhala poems as they originally appeared in publication. Select a work to view the full poster.</p>
+        </div>
+
+        <div class="publication-grid">
+          <article class="poem-feature poem-feature--midnight">
+            <button class="poem-poster" type="button" data-full="images/poems/paramal-sanwada-art.png" aria-label="පරමල් සංවාද පෝස්ටරය විශාල කර බලන්න">
+              <img src="images/poems/paramal-sanwada-art.png" alt="පරමල් සංවාද කවිය සඳහා නිර්මාණය කළ පන්සල් මල් පූජාවක දෘශ්‍යය" loading="lazy" />
+              <span class="expand-mark" aria-hidden="true">↗</span>
+            </button>
+            <div class="poem-copy" lang="si">
+              <span class="poem-number">Published poem · 01</span>
+              <h3>පරමල් සංවාද</h3>
+              <div class="mini-divider"></div>
+              <p class="stanza">වට්ටිය මුදුනතේ සිල්වත් පොහෝට්ටු ම
+හිනැහේ පුල් කුසුම් ඒ වට සරසා ම
+නොගා මඩේ රැකි නටු ටික කුඩේ ම
+පරමල් එක්ක උන් දමී සංවාදේම</p>
+              <p class="stanza">වියූ හැඩේ වැලි මළුවේ තැන්පත් ය
+ඉඳහිට තැනෙක වියළී ගිය බෝපත් ය
+බිඳුණු දැහැන කම් නැත එහි සක්මන් ය
+වැටුණත් කහට සිල් රෙදි තව පැහැපත් ය</p>
+              <p class="stanza">සුවඳ කුරු ඇළු යට ගිනි පුපුරත් ද
+මල් පරවුණත් වට්ටියෙ ඇති සුවඳක් ද
+රටා නොපෙනුණත් මළුවත් සිල් ගත් ද
+මෝරා හදක් අමාවකේ නැතුවත් ද</p>
+              <p class="poem-credit">කර්තෘ: ආර්. අනුදි නිල්මා විජයප්‍රිය<br />වෛද්‍ය පීඨය, පේරාදෙණිය විශ්වවිද්‍යාලය</p>
+            </div>
+          </article>
+
+          <article class="poem-feature poem-feature--mono">
+            <button class="poem-poster" type="button" data-full="images/poems/kahawanu-amawaka-art.png" aria-label="කහවනු සහ අමාවක පෝස්ටරය විශාල කර බලන්න">
+              <img src="images/poems/kahawanu-amawaka-art.png" alt="කහවනු සහ අමාවක කවිය සඳහා නිර්මාණය කළ වැසි රාත්‍රියක දෘශ්‍යය" loading="lazy" />
+              <span class="expand-mark" aria-hidden="true">↗</span>
+            </button>
+            <div class="poem-copy" lang="si">
+              <span class="poem-number">Published poem · 02</span>
+              <h3>කහවනු සහ අමාවක</h3>
+              <div class="mini-divider"></div>
+              <p class="stanza">කළුවර අහස මැද සුදු සඳ දිළිහෙද්දී
+කෙහෙරැළි අඬ ගසයි මට නුඹෙ ළඟ ඉද්දී
+සුසුමට ඉඩක් නැතුව ද මුව සපවද්දී
+අදවත් මුදන්න ද සාවුන් කන් දෙද්දී</p>
+              <p class="stanza">සාවුන් අරන් මං වෙයි කළු වළාවක
+මුදනෙමි සුසුම් පමණක් මයෙ හිනාවක
+කෙහෙරැළි තීවෙ රහසකි එක වෙලාවක
+සඳ කොයි අහසෙ නැහැ අද නොවැ අමාවක</p>
+              <p class="stanza">නා දළු දෙතොල් නැත කටරොළු දෙතොල් ඇත
+සියුමැලි ලවන් ඇත සුසිනිඳු කොපුල් නැත
+වට කර පඳුරු නැත කටු නැති කැලේ ඇත
+උල්පත මගේ ඇත ගඟ තව ගලා නැත</p>
+              <p class="stanza">උල්පත නුඹේ සනසමි ගඟ ගලන්නට
+කටු නැති කැලේ නැත අවසර දොවන්නට
+කොපුලෙහි මධු රහස කල් ඇත විඳින්නට
+නා දළු කැපයි කටරොළු බැහැ සිඹින්නට</p>
+              <p class="poem-credit">කර්තෘ: ආර්. අනුදි නිල්මා විජයප්‍රිය<br />වෛද්‍ය පීඨය, පේරාදෙණිය විශ්වවිද්‍යාලය</p>
+            </div>
+          </article>
+
+          <article class="poem-feature poem-feature--paper">
+            <button class="poem-poster" type="button" data-full="images/poems/guru-para-art.png" aria-label="ගුරු පාර පෝස්ටරය විශාල කර බලන්න">
+              <img src="images/poems/guru-para-art.png" alt="ගුරු පාර කවිය සඳහා නිර්මාණය කළ වැසි වැටුණු ගුරු පාරක දෘශ්‍යය" loading="lazy" />
+              <span class="expand-mark" aria-hidden="true">↗</span>
+            </button>
+            <div class="poem-copy" lang="si">
+              <span class="poem-number">Published poem · 03</span>
+              <h3>ගුරු පාර</h3>
+              <div class="mini-divider"></div>
+              <p class="stanza">ගුරු පාර වැහීගෙන
+අයිතියක් කියයි හෙට
+මකා පිය සටහනක
+තාර ගුලි පුසුඹ දෙන</p>
+              <p class="stanza">හීනියට මල් වැටුණ
+වැහි පොදේ එතීගෙන
+දැනෙන අන්තිම දවස
+බොරළු සිප නැගි සුවඳ</p>
+              <p class="poem-credit">කර්තෘ: අනුදි නිල්මා<br />වෛද්‍ය පීඨය, පේරාදෙණිය විශ්වවිද්‍යාලය</p>
+            </div>
+          </article>
+
+          <article class="poem-feature poem-feature--ember">
+            <button class="poem-poster" type="button" data-full="images/poems/kuli-garbhashaya-art.png" aria-label="කුලී ගර්භාෂ පෝස්ටරය විශාල කර බලන්න">
+              <img src="images/poems/kuli-garbhashaya-art.png" alt="කුලී ගර්භාෂ කවිය සඳහා නිර්මාණය කළ රතු නූල් සහ කාසි සහිත සංකේතාත්මක දෘශ්‍යය" loading="lazy" />
+              <span class="expand-mark" aria-hidden="true">↗</span>
+            </button>
+            <div class="poem-copy" lang="si">
+              <span class="poem-number">Published poem · 04</span>
+              <h3>කුලී ගර්භාෂ</h3>
+              <div class="mini-divider"></div>
+              <p class="stanza">නුඹේ හිත හිලව්වට මගේ ළඟ තියාගෙන
+කුලී ගර්භාෂයක අයිතියක් ලියන්නට
+සිල්ලරව සල්පිලක මොණරු එක්කහු කරන
+නුඹේ මේ ටික දොහට හිමිකාරි අසම්මත</p>
+              <p class="poem-credit">කර්තෘ: ආර්. අනුදි නිල්මා විජයප්‍රිය<br />වෛද්‍ය පීඨය, පේරාදෙණිය විශ්වවිද්‍යාලය</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-sm" style="background:var(--cream-dark);">
+      <div class="container">
+        <div class="collection-head">
+          <div><p class="section-label">Original manuscripts</p><h2>Poetry Library</h2></div>
+          <p>Open a PDF in your browser or download the editable Word manuscript.</p>
+        </div>
+
+        <div class="document-list">
+          <a class="document-card" href="documents/anthima-wathawata-eka-sarayak.pdf" target="_blank" rel="noopener"><span class="document-icon">PDF</span><div><h3 lang="si">අන්තිම වතාවට එක සැරයක්</h3><p>Open original manuscript</p></div><span class="document-action" aria-hidden="true">↗</span></a>
+          <a class="document-card" href="documents/higamanaka-ithuru-wunu-thamba-kasi-ahuru.pdf" target="_blank" rel="noopener"><span class="document-icon">PDF</span><div><h3 lang="si">හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු</h3><p>Open original manuscript</p></div><span class="document-action" aria-hidden="true">↗</span></a>
+          <a class="document-card" href="documents/umathu-amawaka.docx" download><span class="document-icon">DOCX</span><div><h3 lang="si">උමතු අමාවක</h3><p>Download Word manuscript</p></div><span class="document-action" aria-hidden="true">↓</span></a>
+          <a class="document-card" href="documents/alu-mathata-pan-wadana.pdf" target="_blank" rel="noopener"><span class="document-icon">PDF</span><div><h3 lang="si">අළු මතට — පැන් වඩන</h3><p>Open original manuscript</p></div><span class="document-action" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="image-modal" id="imageModal" role="dialog" aria-modal="true" aria-label="Full-size published poem">
+    <button class="modal-close" id="modalClose" aria-label="Close image">×</button>
+    <img id="modalImage" src="" alt="" />
   </div>
 
-  <!-- POEM LIST -->
-  <section class="section-sm">
-    <div class="container">
-
-      <!-- Filter -->
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="nature">Nature</button>
-        <button class="filter-btn" data-filter="longing">Longing</button>
-        <button class="filter-btn" data-filter="memory">Memory</button>
-        <button class="filter-btn" data-filter="love">Love</button>
-      </div>
-
-      <!-- Poem rows — add more as needed -->
-      <div class="poem-list" id="poemList">
-
-        <a href="poems/morning-light.html" class="poem-row" data-category="nature">
-          <div>
-            <div class="poem-row-meta">
-              <h3>Morning Light</h3>
-              <span class="tag">Nature</span>
-            </div>
-            <p class="excerpt">"The sun arrives not like a conqueror but like a question…"</p>
-          </div>
-          <div style="display:flex; align-items:center; gap:1rem;">
-            <span class="date">March 2025</span>
-            <span class="arrow">→</span>
-          </div>
-        </a>
-
-        <a href="poems/the-waiting.html" class="poem-row" data-category="longing">
-          <div>
-            <div class="poem-row-meta">
-              <h3>The Waiting</h3>
-              <span class="tag">Longing</span>
-            </div>
-            <p class="excerpt">"In doorways we become the space between arrival and departure…"</p>
-          </div>
-          <div style="display:flex; align-items:center; gap:1rem;">
-            <span class="date">February 2025</span>
-            <span class="arrow">→</span>
-          </div>
-        </a>
-
-        <a href="poems/roots.html" class="poem-row" data-category="memory">
-          <div>
-            <div class="poem-row-meta">
-              <h3>Roots</h3>
-              <span class="tag">Memory</span>
-            </div>
-            <p class="excerpt">"My grandmother's hands were maps of a country I never knew…"</p>
-          </div>
-          <div style="display:flex; align-items:center; gap:1rem;">
-            <span class="date">January 2025</span>
-            <span class="arrow">→</span>
-          </div>
-        </a>
-
-        <a href="poems/between-us.html" class="poem-row" data-category="love">
-          <div>
-            <div class="poem-row-meta">
-              <h3>Between Us</h3>
-              <span class="tag">Love</span>
-            </div>
-            <p class="excerpt">"There is a geography only lovers know — the country of a shoulder, the province of a palm…"</p>
-          </div>
-          <div style="display:flex; align-items:center; gap:1rem;">
-            <span class="date">December 2024</span>
-            <span class="arrow">→</span>
-          </div>
-        </a>
-
-        <a href="poems/after-rain.html" class="poem-row" data-category="nature">
-          <div>
-            <div class="poem-row-meta">
-              <h3>After Rain</h3>
-              <span class="tag">Nature</span>
-            </div>
-            <p class="excerpt">"The earth smells like it remembers something it forgot to tell us…"</p>
-          </div>
-          <div style="display:flex; align-items:center; gap:1rem;">
-            <span class="date">November 2024</span>
-            <span class="arrow">→</span>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 R.Anudi Nilma Wijayapriya. All rights reserved.</p>
-  </footer>
+  <footer><p>© 2026 R.Anudi Nilma Wijayapriya. All rights reserved.</p></footer>
 
   <script>
     const toggle = document.getElementById('navToggle');
-    const links  = document.getElementById('navLinks');
+    const links = document.getElementById('navLinks');
     toggle.addEventListener('click', () => links.classList.toggle('open'));
 
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const rows = document.querySelectorAll('.poem-row');
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalClose = document.getElementById('modalClose');
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const f = btn.dataset.filter;
-        rows.forEach(row => {
-          const match = f === 'all' || row.dataset.category === f;
-          row.setAttribute('data-hidden', String(!match));
-        });
-      });
+    function openPublication(card) {
+      modalImage.src = card.dataset.full;
+      modalImage.alt = card.querySelector('img').alt;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      modalClose.focus();
+    }
+
+    function closePublication() {
+      modal.classList.remove('open');
+      modalImage.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.poem-poster').forEach(poster => {
+      poster.addEventListener('click', () => openPublication(poster));
     });
+
+    modalClose.addEventListener('click', closePublication);
+    modal.addEventListener('click', event => { if (event.target === modal) closePublication(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape' && modal.classList.contains('open')) closePublication(); });
   </script>
 </body>
 </html>
