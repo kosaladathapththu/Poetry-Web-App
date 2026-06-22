@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poet Name — Poetry & Words</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Hero ── */
+    .hero {
+      min-height: calc(92vh - var(--nav-h));
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 4rem 0;
+    }
+
+    .hero-text .greeting {
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .hero-text h1 {
+      margin: 0.4rem 0 0.2rem;
+    }
+
+    .hero-text .tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--brown-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-text p {
+      font-size: 1rem;
+      max-width: 420px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .hero-image-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-photo {
+      width: 340px;
+      height: 440px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    .hero-quote-card {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -1.5rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 1rem 1.2rem;
+      max-width: 220px;
+    }
+
+    .hero-quote-card p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .hero-quote-card span {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.5rem;
+    }
+
+    /* ── Featured Poems ── */
+    .featured-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 2.5rem;
+    }
+
+    .poems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+    }
+
+    .poem-card {
+      background: var(--white);
+      padding: 2rem 1.8rem;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .poem-card:hover { background: var(--cream-dark); }
+
+    .poem-card .tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .poem-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .poem-card .excerpt {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--brown-light);
+      line-height: 1.6;
+    }
+
+    .poem-card .read-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .poem-card:hover .read-link { border-color: var(--accent); }
+
+    /* ── Quote Banner ── */
+    .quote-banner {
+      background: var(--brown-dark);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .quote-banner blockquote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--cream);
+      max-width: 640px;
+      margin: 0 auto 1rem;
+      line-height: 1.5;
+    }
+
+    .quote-banner cite {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 3rem;
+      }
+      .hero-image-wrap { order: -1; }
+      .hero-photo { width: 100%; height: 320px; }
+      .hero-quote-card { display: none; }
+      .featured-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Poet Name</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="poems.html">Poems</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="section">
+    <div class="container">
+      <div class="hero">
+        <div class="hero-text">
+          <p class="greeting">Welcome</p>
+          <h1>Poet Name</h1>
+          <p class="tagline">Words woven from silence</p>
+          <p>A poet exploring the quiet spaces between moments — love, loss, longing, and the small sacred things.</p>
+          <div class="hero-ctas">
+            <a href="poems.html" class="btn btn-solid">Read Poems</a>
+            <a href="about.html" class="btn">About Me</a>
+          </div>
+        </div>
+
+        <div class="hero-image-wrap">
+          <!-- Replace src with actual photo -->
+          <img src="images/poet-photo.jpg" alt="Portrait of Poet Name" class="hero-photo"
+               onerror="this.style.background='#D4C4A8'; this.removeAttribute('src')" />
+          <div class="hero-quote-card">
+            <p>"Poetry is the shadow cast by our streetlight imaginations."</p>
+            <span>— Lawrence Ferlinghetti</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED POEMS -->
+  <section class="section" style="background: var(--cream-dark); padding-top: 4rem; padding-bottom: 5rem;">
+    <div class="container">
+      <div class="featured-header">
+        <div>
+          <p class="section-label">Selected Works</p>
+          <h2>Featured Poems</h2>
+          <div class="divider"></div>
+        </div>
+        <a href="poems.html" class="btn">View All</a>
+      </div>
+
+      <div class="poems-grid">
+        <a href="poems/morning-light.html" class="poem-card">
+          <p class="tag">Nature</p>
+          <h3>Morning Light</h3>
+          <p class="excerpt">"The sun arrives<br>not like a conqueror<br>but like a question…"</p>
+          <span class="read-link">Read Poem →</span>
+        </a>
+        <a href="poems/the-waiting.html" class="poem-card">
+          <p class="tag">Longing</p>
+          <h3>The Waiting</h3>
+          <p class="excerpt">"In doorways we become<br>the space between<br>arrival and departure…"</p>
+          <span class="read-link">Read Poem →</span>
+        </a>
+        <a href="poems/roots.html" class="poem-card">
+          <p class="tag">Memory</p>
+          <h3>Roots</h3>
+          <p class="excerpt">"My grandmother's hands<br>were maps of a country<br>I never knew…"</p>
+          <span class="read-link">Read Poem →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE BANNER -->
+  <div class="quote-banner">
+    <blockquote>"There is no place for grief in a house full of music."</blockquote>
+    <cite>— Sappho</cite>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Poet Name. All rights reserved.</p>
+    <p style="margin-top:0.4rem; font-size:0.78rem;">Built with love & plain HTML.</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  </script>
+</body>
+</html>

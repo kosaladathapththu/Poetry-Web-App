@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Poet Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      padding: 5rem 0 3.5rem;
+      background: var(--cream-dark);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 5rem;
+      align-items: start;
+      padding: 5rem 0;
+    }
+
+    .about-photo-wrap { position: sticky; top: calc(var(--nav-h) + 2rem); }
+
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    .about-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--cream-dark);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    .about-caption {
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-top: 0.8rem;
+      text-align: center;
+    }
+
+    .about-body h2 { margin-bottom: 0.5rem; }
+    .about-body p  { margin-bottom: 1.2rem; }
+
+    .about-body p.big {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--brown);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    .highlight-item {
+      background: var(--white);
+      padding: 1.5rem;
+    }
+
+    .highlight-item .num {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .highlight-item p {
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    @media (max-width: 760px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 3rem 0;
+      }
+      .about-photo-wrap { position: static; }
+      .about-photo { max-width: 260px; }
+      .highlights { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Poet Name</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="poems.html">Poems</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-hero">
+    <div class="container">
+      <p class="section-label">The Poet</p>
+      <h1>About Me</h1>
+      <div class="divider"></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Photo column -->
+        <div class="about-photo-wrap">
+          <!-- Replace with actual image -->
+          <img src="images/about-photo.jpg" alt="Poet Name" class="about-photo"
+               onerror="this.outerHTML='<div class=\'about-photo-placeholder\'>Photo</div>'" />
+          <p class="about-caption">Poet Name — [City, Country]</p>
+        </div>
+
+        <!-- Text column -->
+        <div class="about-body">
+          <p class="section-label">Hello</p>
+          <h2>I write to find out what I'm thinking.</h2>
+          <div class="divider"></div>
+
+          <p class="big">
+            "Poetry is not what I do — it is how I see. The world arrives in fragments, and I spend my days trying to make them whole."
+          </p>
+
+          <p>
+            I am [Poet Name], a poet and writer based in [City]. I've been writing since I was old enough to know that some feelings can't be spoken — only arranged on a page and left for someone else to find.
+          </p>
+
+          <p>
+            My work draws from [themes — e.g. nature, family, memory, the everyday sacred]. I believe that poetry lives in the ordinary: the smell of rain on dry earth, the silence after a difficult conversation, the weight of a name that is no longer spoken.
+          </p>
+
+          <p>
+            I write in [language(s)] and share my work here — freely, without gatekeepers. If something I've written has stayed with you, that is more than enough for me.
+          </p>
+
+          <div class="highlights">
+            <div class="highlight-item">
+              <div class="num">40+</div>
+              <p>Poems written</p>
+            </div>
+            <div class="highlight-item">
+              <div class="num">3</div>
+              <p>Years writing publicly</p>
+            </div>
+            <div class="highlight-item">
+              <div class="num">2</div>
+              <p>Languages</p>
+            </div>
+            <div class="highlight-item">
+              <div class="num">∞</div>
+              <p>Things left to say</p>
+            </div>
+          </div>
+
+          <a href="contact.html" class="btn btn-solid">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Poet Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  </script>
+</body>
+</html>

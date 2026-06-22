@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poems — Poet Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      padding: 5rem 0 3.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 2.5rem 0 3rem;
+    }
+
+    .filter-btn {
+      padding: 0.4rem 1.1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--brown);
+      color: var(--white);
+      border-color: var(--brown);
+    }
+
+    /* Poem list */
+    .poem-list { display: flex; flex-direction: column; gap: 0; }
+
+    .poem-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--border);
+      gap: 2rem;
+      text-decoration: none;
+      transition: padding-left 0.2s;
+    }
+    .poem-row:hover { padding-left: 0.5rem; }
+
+    .poem-row:first-child { border-top: 1px solid var(--border); }
+
+    .poem-row-meta { display: flex; align-items: baseline; gap: 1.2rem; flex-wrap: wrap; }
+
+    .poem-row h3 {
+      font-size: 1.35rem;
+      color: var(--brown-dark);
+      transition: color 0.2s;
+    }
+    .poem-row:hover h3 { color: var(--accent); }
+
+    .poem-row .tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .poem-row .excerpt {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--brown-light);
+      margin-top: 0.3rem;
+    }
+
+    .poem-row .date {
+      font-size: 0.78rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .poem-row .arrow {
+      font-size: 1rem;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .poem-row:hover .arrow { opacity: 1; }
+
+    /* hidden for filter */
+    .poem-row[data-hidden="true"] { display: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Poet Name</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="poems.html" class="active">Poems</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero" style="background: var(--cream-dark);">
+    <div class="container">
+      <p class="section-label">All Writings</p>
+      <h1>Poems</h1>
+      <div class="divider"></div>
+      <p style="max-width:480px; margin-top:0.5rem;">
+        A collection of verses — some whispering, some shouting, all honest.
+      </p>
+    </div>
+  </div>
+
+  <!-- POEM LIST -->
+  <section class="section-sm">
+    <div class="container">
+
+      <!-- Filter -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="nature">Nature</button>
+        <button class="filter-btn" data-filter="longing">Longing</button>
+        <button class="filter-btn" data-filter="memory">Memory</button>
+        <button class="filter-btn" data-filter="love">Love</button>
+      </div>
+
+      <!-- Poem rows — add more as needed -->
+      <div class="poem-list" id="poemList">
+
+        <a href="poems/morning-light.html" class="poem-row" data-category="nature">
+          <div>
+            <div class="poem-row-meta">
+              <h3>Morning Light</h3>
+              <span class="tag">Nature</span>
+            </div>
+            <p class="excerpt">"The sun arrives not like a conqueror but like a question…"</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <span class="date">March 2025</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <a href="poems/the-waiting.html" class="poem-row" data-category="longing">
+          <div>
+            <div class="poem-row-meta">
+              <h3>The Waiting</h3>
+              <span class="tag">Longing</span>
+            </div>
+            <p class="excerpt">"In doorways we become the space between arrival and departure…"</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <span class="date">February 2025</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <a href="poems/roots.html" class="poem-row" data-category="memory">
+          <div>
+            <div class="poem-row-meta">
+              <h3>Roots</h3>
+              <span class="tag">Memory</span>
+            </div>
+            <p class="excerpt">"My grandmother's hands were maps of a country I never knew…"</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <span class="date">January 2025</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <a href="poems/between-us.html" class="poem-row" data-category="love">
+          <div>
+            <div class="poem-row-meta">
+              <h3>Between Us</h3>
+              <span class="tag">Love</span>
+            </div>
+            <p class="excerpt">"There is a geography only lovers know — the country of a shoulder, the province of a palm…"</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <span class="date">December 2024</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <a href="poems/after-rain.html" class="poem-row" data-category="nature">
+          <div>
+            <div class="poem-row-meta">
+              <h3>After Rain</h3>
+              <span class="tag">Nature</span>
+            </div>
+            <p class="excerpt">"The earth smells like it remembers something it forgot to tell us…"</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <span class="date">November 2024</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Poet Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const rows = document.querySelectorAll('.poem-row');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        rows.forEach(row => {
+          const match = f === 'all' || row.dataset.category === f;
+          row.setAttribute('data-hidden', String(!match));
+        });
+      });
+    });
+  </script>
+</body>
+</html>

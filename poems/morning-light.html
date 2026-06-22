@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morning Light — Poet Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .poem-page { max-width: 620px; margin: 0 auto; padding: 5rem 1.5rem 6rem; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .poem-meta { margin-bottom: 2.5rem; }
+    .poem-meta .tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .poem-meta h1 { margin-bottom: 0.5rem; }
+    .poem-meta .date {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .poem-body {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      line-height: 2;
+      color: var(--ink);
+      white-space: pre-line;
+    }
+
+    .poem-body .stanza { margin-bottom: 2rem; display: block; }
+
+    .poem-note {
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .poem-note .note-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .poem-note p {
+      font-size: 0.9rem;
+      font-style: italic;
+      max-width: 480px;
+    }
+
+    .poem-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      gap: 1rem;
+    }
+    .poem-nav a {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .poem-nav a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Poet Name</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../poems.html" class="active">Poems</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="poem-page">
+
+    <a href="../poems.html" class="back-link">← All Poems</a>
+
+    <div class="poem-meta">
+      <p class="tag">Nature</p>
+      <h1>Morning Light</h1>
+      <div class="divider"></div>
+      <p class="date">March 2025</p>
+    </div>
+
+    <!-- THE POEM — edit freely, use blank lines between stanzas -->
+    <div class="poem-body">
+<span class="stanza">The sun arrives
+not like a conqueror
+but like a question —
+soft at the curtain's edge,
+asking if we're ready.</span>
+
+<span class="stanza">I am never ready.
+I am always standing
+in last night's clothes,
+holding yesterday
+in both hands.</span>
+
+<span class="stanza">But the light comes anyway.
+That is what light does.
+It does not ask permission.
+It does not wait for you
+to stop grieving.</span>
+
+<span class="stanza">It arrives.
+It fills the room.
+It says:
+here you are,
+still here.</span>
+    </div>
+
+    <!-- OPTIONAL: poet's note about the poem -->
+    <div class="poem-note">
+      <p class="note-label">Poet's Note</p>
+      <p>This poem was written on a January morning when I couldn't decide whether to be sad or grateful. The light made the decision for me.</p>
+    </div>
+
+    <!-- Prev / Next navigation -->
+    <div class="poem-nav">
+      <a href="#">← Previous Poem</a>
+      <a href="#">Next Poem →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2025 Poet Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  </script>
+</body>
+</html>

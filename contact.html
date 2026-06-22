@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Poet Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      padding: 5rem 0 3.5rem;
+      background: var(--cream-dark);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      padding: 5rem 0;
+      align-items: start;
+    }
+
+    .contact-info h2 { margin-bottom: 0.5rem; }
+    .contact-info p  { margin-bottom: 1.5rem; max-width: 360px; }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 1.2rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .contact-item:last-child { border-bottom: 1px solid var(--border); }
+
+    .contact-item .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .contact-item a,
+    .contact-item span {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--brown-dark);
+    }
+    .contact-item a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .form-group label {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--brown-light);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 140px; }
+
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: -0.5rem;
+    }
+
+    #formSuccess {
+      display: none;
+      padding: 1.2rem;
+      background: #f0ebe2;
+      border: 1px solid var(--border);
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    @media (max-width: 700px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 3rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Poet Name</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="poems.html">Poems</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-hero">
+    <div class="container">
+      <p class="section-label">Say Hello</p>
+      <h1>Contact</h1>
+      <div class="divider"></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Info -->
+        <div class="contact-info">
+          <p class="section-label">Reach Out</p>
+          <h2>Let's connect.</h2>
+          <div class="divider"></div>
+          <p>
+            Whether you want to share how a poem touched you, ask about collaborations, or simply say hello — I'd love to hear from you.
+          </p>
+
+          <div class="contact-item">
+            <span class="label">Email</span>
+            <!-- Replace with actual email -->
+            <a href="mailto:poet@example.com">poet@example.com</a>
+          </div>
+
+          <div class="contact-item">
+            <span class="label">Instagram</span>
+            <a href="https://instagram.com/poethandle" target="_blank">@poethandle</a>
+          </div>
+
+          <div class="contact-item">
+            <span class="label">Based in</span>
+            <span>City, Country</span>
+          </div>
+        </div>
+
+        <!-- Form (uses Formspree — free, no backend needed) -->
+        <div>
+          <p class="section-label">Write to me</p>
+          <h2 style="margin-bottom:1.5rem;">Send a message</h2>
+
+          <!--
+            HOW TO ACTIVATE THIS FORM (free):
+            1. Go to https://formspree.io and create a free account
+            2. Create a new form — you'll get a form ID like "xpzgwkqr"
+            3. Replace YOUR_FORM_ID below with your actual ID
+            4. That's it — submissions go straight to your email!
+          -->
+          <form class="contact-form" id="contactForm"
+                action="https://formspree.io/f/YOUR_FORM_ID"
+                method="POST">
+
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="What's this about?" />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Your message…" required></textarea>
+            </div>
+
+            <p class="form-note">I read every message personally and reply within a few days.</p>
+
+            <button type="submit" class="btn btn-solid" style="align-self: flex-start;">Send Message</button>
+          </form>
+
+          <div id="formSuccess">
+            Thank you for writing. I'll be in touch soon.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Poet Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const res  = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+      if (res.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
