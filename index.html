@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     /* ── Hero ── */
     .hero {
@@ -179,6 +180,7 @@
       .featured-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }
   </style>
+  
 </head>
 <body>
 
@@ -272,9 +274,25 @@
   </footer>
 
   <script>
-    const toggle = document.getElementById('navToggle');
-    const links  = document.getElementById('navLinks');
+  const toggle = document.getElementById('navToggle');
+  const links  = document.getElementById('navLinks');
+
+  if (toggle && links) {
     toggle.addEventListener('click', () => links.classList.toggle('open'));
-  </script>
+  }
+
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+
+    window.netlifyIdentity.init();
+  }
+</script>
+  
 </body>
 </html>
