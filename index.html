@@ -96,52 +96,79 @@
 
     .poems-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5px;
-      background: var(--border);
-      border: 1.5px solid var(--border);
+      grid-template-columns: 1.35fr 1fr;
+      grid-template-rows: repeat(2, 255px);
+      gap: 1.25rem;
+      background: transparent;
+      border: 0;
     }
 
     .poem-card {
-      background: var(--white);
-      padding: 2rem 1.8rem;
-      transition: background 0.2s;
+      position: relative;
+      min-height: 0;
+      padding: 0 !important;
+      border: 1px solid rgba(185, 202, 255, .8);
+      border-radius: 24px;
+      background: var(--navy) !important;
+      box-shadow: var(--shadow-sm);
       cursor: pointer;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform .3s ease, box-shadow .3s ease;
     }
-    .poem-card:hover { background: var(--cream-dark); }
+    .poem-card:first-child { grid-row: 1 / 3; }
+    .poem-card:hover { background: var(--navy) !important; transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .poem-card::after { content:""; position:absolute; inset:25% 0 0; z-index:1; background:linear-gradient(transparent,rgba(3,10,31,.94)); }
+    .poem-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .55s ease, filter .35s ease; }
+    .poem-card:hover img { transform:scale(1.04); filter:brightness(.9); }
+    .poem-card-content { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:1.6rem; }
 
     .poem-card .tag {
+      display: inline-flex;
+      width: max-content;
+      padding: .38rem .65rem;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
       font-size: 0.72rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #dce6ff;
       margin-bottom: 0.8rem;
     }
 
     .poem-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.8rem;
+      max-width: 540px;
+      margin-bottom: .45rem;
+      color: white;
+      font-family: 'Noto Sans Sinhala', sans-serif;
+      font-size: clamp(1.25rem, 2.3vw, 2rem);
+      line-height: 1.5;
+      letter-spacing: 0;
     }
 
     .poem-card .excerpt {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 0.95rem;
-      color: var(--brown-light);
+      font-family: var(--font-sans);
+      font-style: normal;
+      font-size: .78rem;
+      color: #c5d3ff;
       line-height: 1.6;
     }
 
     .poem-card .read-link {
       display: inline-block;
-      margin-top: 1.2rem;
+      position: static;
+      bottom: auto;
+      margin-top: .8rem;
       font-size: 0.78rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: white;
       border-bottom: 1px solid transparent;
       transition: border-color 0.2s;
     }
-    .poem-card:hover .read-link { border-color: var(--accent); }
+    .poem-card:hover .read-link { border-color: #9db6ff; }
 
     /* ── Quote Banner ── */
     .quote-banner {
@@ -178,6 +205,8 @@
       .hero-photo { width: 100%; height: 320px; }
       .hero-quote-card { display: none; }
       .featured-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .poems-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+      .poem-card, .poem-card:first-child { grid-row: auto; min-height: 390px; }
     }
   </style>
   
@@ -226,13 +255,13 @@
     </div>
   </section>
 
-  <!-- FEATURED POEMS -->
+  <!-- RECENT WORKS -->
   <section class="section" style="background: var(--cream-dark); padding-top: 4rem; padding-bottom: 5rem;">
     <div class="container">
       <div class="featured-header">
         <div>
-          <p class="section-label">Selected Works</p>
-          <h2>Featured Poems</h2>
+          <p class="section-label">From the archive</p>
+          <h2>Recent Works</h2>
           <div class="divider"></div>
         </div>
         <a href="poems.html" class="btn">View All</a>
@@ -240,22 +269,29 @@
 
       <div class="poems-grid">
         <a href="poems.html#paramal-sanwada" class="poem-card">
-          <p class="tag">Sinhala Poetry</p>
-          <h3 lang="si" style="font-family:'Noto Sans Sinhala',sans-serif;letter-spacing:0;line-height:1.55;">පරමල් සංවාද</h3>
-          <p class="excerpt">Original poetry by R.Anudi Nilma Wijayapriya.</p>
-          <span class="read-link">Read Poem →</span>
+          <img src="images/poems/paramal-sanwada-art.png" alt="පරමල් සංවාද කවිය සඳහා නිර්මාණය කළ මල් පූජාවක දෘශ්‍යය" loading="lazy" />
+          <div class="poem-card-content">
+            <p class="tag">Selected poem</p>
+            <h3 lang="si">පරමල් සංවාද</h3>
+            <p class="excerpt">An original work by R.Anudi Nilma Wijayapriya</p>
+            <span class="read-link">Read on site →</span>
+          </div>
         </a>
         <a href="poems.html#higamanaka-kasi" class="poem-card">
-          <p class="tag">Sinhala Poetry</p>
-          <h3 lang="si" style="font-family:'Noto Sans Sinhala',sans-serif;letter-spacing:0;line-height:1.55;">හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු</h3>
-          <p class="excerpt">Original poetry by R.Anudi Nilma Wijayapriya.</p>
-          <span class="read-link">Read Poem →</span>
+          <img src="images/poems/higamanaka-kasi-art.png" alt="හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු කවිය සඳහා නිර්මාණය කළ දෘශ්‍යය" loading="lazy" />
+          <div class="poem-card-content">
+            <p class="tag">Recent poem</p>
+            <h3 lang="si">හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු</h3>
+            <span class="read-link">Read on site →</span>
+          </div>
         </a>
         <a href="poems.html#alu-mathata" class="poem-card">
-          <p class="tag">Sinhala Poetry</p>
-          <h3 lang="si" style="font-family:'Noto Sans Sinhala',sans-serif;letter-spacing:0;line-height:1.55;">අළු මතට — පැන් වඩන</h3>
-          <p class="excerpt">Original poetry by R.Anudi Nilma Wijayapriya.</p>
-          <span class="read-link">Read Poem →</span>
+          <img src="images/poems/alu-mathata-art.png" alt="අළු මතට පැන් වඩන කවිය සඳහා නිර්මාණය කළ දෘශ්‍යය" loading="lazy" />
+          <div class="poem-card-content">
+            <p class="tag">Recent poem</p>
+            <h3 lang="si">අළු මතට — පැන් වඩන</h3>
+            <span class="read-link">Read on site →</span>
+          </div>
         </a>
       </div>
     </div>
