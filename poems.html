@@ -61,6 +61,25 @@
     .document-card p { font-size:.72rem; margin-top:.2rem; }
     .document-action { display:grid; place-items:center; width:38px; height:38px; border-radius:10px; color:var(--royal); background:var(--sky); font-size:1.1rem; }
 
+    .manuscript-stack { display:flex; flex-direction:column; gap:1.5rem; }
+    .reader-card { position:relative; padding:clamp(1.5rem,4vw,3rem); border:1px solid var(--border); border-radius:24px; background:rgba(255,255,255,.88); box-shadow:var(--shadow-sm); overflow:hidden; }
+    .reader-card::after { content:""; position:absolute; top:0; left:0; width:6px; height:100%; background:linear-gradient(var(--royal-bright),var(--royal)); }
+    .reader-heading { display:flex; align-items:start; justify-content:space-between; gap:1.5rem; margin-bottom:2rem; padding-bottom:1.35rem; border-bottom:1px solid var(--border); }
+    .reader-kicker { color:var(--royal); font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+    .reader-heading h3 { margin:.5rem 0 0; font-family:"Noto Sans Sinhala",sans-serif; font-size:clamp(1.35rem,3vw,2rem); line-height:1.55; letter-spacing:0; }
+    .source-link { flex:0 0 auto; padding:.7rem 1rem; border:1px solid #bfd0ff; border-radius:11px; color:var(--royal); background:var(--sky); font-size:.73rem; font-weight:500; }
+    .source-link:hover { background:var(--royal); color:white; }
+    .reader-poem { columns:2; column-gap:clamp(2rem,6vw,5rem); column-rule:1px solid var(--border); }
+    .reader-poem .stanza { break-inside:avoid; margin:0 0 1.75rem; color:#273554; font-size:clamp(.9rem,1.35vw,1.04rem); line-height:2.15; }
+    .reader-card--prose .reader-heading { margin-bottom:1.5rem; }
+    .prose-copy { max-width:900px; margin:0 auto; }
+    .prose-copy p { margin-bottom:1.25rem; color:#35415f; font-family:"Noto Sans Sinhala",sans-serif; font-size:.94rem; line-height:2.15; text-align:justify; }
+    .prose-more summary { width:max-content; margin:1rem 0 1.5rem; padding:.72rem 1rem; border:1px solid #bfd0ff; border-radius:11px; color:var(--royal); background:var(--sky); font-size:.76rem; cursor:pointer; list-style:none; }
+    .prose-more summary::-webkit-details-marker { display:none; }
+    .prose-more summary::after { content:"  +"; }
+    .prose-more[open] summary::after { content:"  −"; }
+    .additional-manuscript { margin-top:1.5rem; }
+
     .image-modal { position:fixed; inset:0; z-index:1000; display:none; place-items:center; padding:1.5rem; background:rgba(3,9,28,.92); backdrop-filter:blur(12px); }
     .image-modal.open { display:grid; }
     .image-modal img { max-width:min(1100px,94vw); max-height:90vh; border-radius:14px; box-shadow:0 30px 100px rgba(0,0,0,.5); }
@@ -73,6 +92,8 @@
       .poem-feature:nth-child(even) .poem-poster { order:0; }
       .poem-poster { min-height:min(120vw,560px); }
       .poem-copy { padding:2rem 1.35rem 2.4rem; }
+      .reader-heading { flex-direction:column; }
+      .reader-poem { columns:1; }
     }
   </style>
 </head>
@@ -204,15 +225,80 @@
     <section class="section-sm" style="background:var(--cream-dark);">
       <div class="container">
         <div class="collection-head">
-          <div><p class="section-label">Original manuscripts</p><h2>Poetry Library</h2></div>
-          <p>Open a PDF in your browser or download the editable Word manuscript.</p>
+          <div><p class="section-label">Verified from originals</p><h2>Manuscripts</h2></div>
+          <p>The text below was checked against the original PDF and Word documents. The source files remain available beside each work.</p>
         </div>
 
-        <div class="document-list">
-          <a class="document-card" href="documents/anthima-wathawata-eka-sarayak.pdf" target="_blank" rel="noopener"><span class="document-icon">PDF</span><div><h3 lang="si">අන්තිම වතාවට එක සැරයක්</h3><p>Open original manuscript</p></div><span class="document-action" aria-hidden="true">↗</span></a>
-          <a class="document-card" href="documents/higamanaka-ithuru-wunu-thamba-kasi-ahuru.pdf" target="_blank" rel="noopener"><span class="document-icon">PDF</span><div><h3 lang="si">හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු</h3><p>Open original manuscript</p></div><span class="document-action" aria-hidden="true">↗</span></a>
-          <a class="document-card" href="documents/umathu-amawaka.docx" download><span class="document-icon">DOCX</span><div><h3 lang="si">උමතු අමාවක</h3><p>Download Word manuscript</p></div><span class="document-action" aria-hidden="true">↓</span></a>
-          <a class="document-card" href="documents/alu-mathata-pan-wadana.pdf" target="_blank" rel="noopener"><span class="document-icon">PDF</span><div><h3 lang="si">අළු මතට — පැන් වඩන</h3><p>Open original manuscript</p></div><span class="document-action" aria-hidden="true">↗</span></a>
+        <div class="manuscript-stack">
+          <article class="reader-card" lang="si">
+            <header class="reader-heading">
+              <div><span class="reader-kicker">Poem · PDF manuscript</span><h3>හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු</h3></div>
+              <a class="source-link" href="documents/higamanaka-ithuru-wunu-thamba-kasi-ahuru.pdf" target="_blank" rel="noopener">මුල් PDF එක ↗</a>
+            </header>
+            <div class="reader-poem">
+              <p class="stanza">හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු
+තිබුණාලු අහුලද්දි වියළි කොළ පතුරු
+අතේ මිට මෙලවෙනා — බුලත් කොළයක විනා
+හිනා කඳුලක් වැටුනා ද
+ඉරි තැලුණු කොපුලේ
+සිදී දිය හිස් වූ</p>
+              <p class="stanza">කරඬුවට හිස තියා විසිකරන පුද පඬුරු
+තාර ගෑ පාර මත රිදී ඉරි දිස් වූ
+පදික වේදිකාවල තියනව ද නොබලන්න
+මිරිවැඩින් සිප නොගත් මොණර තටු ඇහිරූ</p>
+              <p class="stanza">උස් කුළුණු පාලමක දැලි කුණින් තැවරු
+නාඳුනන මල්වඩම් උපහාර දැක් වූ
+කඩල ගොටු කඩදාසි කවියක්ව මියැදෙන්න
+තෙමී නොම හිර කරන් මෝය කට වැතිරූ</p>
+            </div>
+          </article>
+
+          <article class="reader-card" lang="si">
+            <header class="reader-heading">
+              <div><span class="reader-kicker">Poem · PDF manuscript</span><h3>අළු මතට — පැන් වඩන</h3></div>
+              <a class="source-link" href="documents/alu-mathata-pan-wadana.pdf" target="_blank" rel="noopener">මුල් PDF එක ↗</a>
+            </header>
+            <div class="reader-poem">
+              <p class="stanza">අළු මතට — පැන් වඩන
+වැගිරෙනා — මතක බණ
+තෙමූ සල පා සළඹ
+පැකිලේවි සලන්නට
+සරසවිය පාමුල</p>
+              <p class="stanza">අවාරේ මල් සමයේ දවසක
+ඇහැරිලා කටරොලු සැඳෑවක
+සිදුරු විද නුඹ දෙපලු කළ මුදු
+සිනිඳු රුදු අසිපතේ කොපු තුඩ
+තව ම ඇති සරසවිය පාමුල</p>
+              <p class="stanza">ගිනි තැබූ කුස නිවා මී විත
+නැහැවෙනා මේ නිමේෂෙට පෙර
+ගිහින් යළි අහුලාන එනව ද
+බිඳුණු ඉහිරුණු සිහින මුතු පොට
+තව ම ඇති සරසවිය පාමුල</p>
+            </div>
+          </article>
+
+          <article class="reader-card reader-card--prose" lang="si">
+            <header class="reader-heading">
+              <div><span class="reader-kicker">Short prose · Word manuscript</span><h3>උමතු අමාවක</h3></div>
+              <a class="source-link" href="documents/umathu-amawaka.docx" download>DOCX බාගන්න ↓</a>
+            </header>
+            <div class="prose-copy">
+              <p>වෙහෙසකර දීර්ඝ සති කිහිපයකට පසු පැති කණ්ණාඩිය බිඳී ගිය මෝටර් සයිකලය පේරාදෙණි පාලමේ කෙළවරක නවතා අමාවක දවසක ගලන්නට අමතක වුණු මහවැලිය දෙස බලා සිටීම දැන් වසරක පමණ සිට අප දෙදෙනාට පුරුද්දකට ගොස් ඇත. අන්ධකාරය කපාගෙන නිස්කලංක තණබිමක් සොයා ඇදෙන මළානික කණාමැදිරි එළිවල රස්නය අතුරුදන් කරමින් හමන ශීතල සුළඟට ඉලිප්පිනු ඔහුගේ රළු දෑත්වල රෝම කූප දෙස බලා සිටීම නියං සායකින් වියළී ගිය දොළ පාරක මඟ රැඳුණු කටු කෝටු දෙස බලා සිටීම තරම් මූසලය.</p>
+              <details class="prose-more">
+                <summary>සම්පූර්ණ නිර්මාණය කියවන්න</summary>
+                <p>කලාතුරකින් කොළඹ දෙසින් එන මාතලේ, අම්පාර දෙසට යන පියාඹන රෝද හතරක් හෝ නුවර එළිය දෙසින් එන මඩ ගඳ හමන එළවළු ලොරියක් හැරුණු විට මේ අමාවක පාන්දර සීතල තපින්නට එන්නට තරම් උමතුවක් ඇත්තේ කාට ද?</p>
+                <p>එවන් උමතුවක් තවත් ඇත්නම් ඒ මීට වසරකට පෙර අමාවක දිනක මේ මෝටර් සයිකලයේ පැති කණ්ණාඩිය කඩා බිඳ දැමූ ඒ සුන්දර යුවතියට ය. ඈ අදත් ඒ උමතුවෙන් ම පේරාදෙණි රෝහලේ සිත් සුව වාට්ටුවේ කළු දැල් කවුළුවෙන් අමාවක සඳ දෙස බලා සිටින්නී ය.</p>
+                <p>ඇයගේ සිනහවේ දිග පළල, කළු ඉංගිරියාවේ රටාවල හැඩය, කෙහෙරැළි අතරින් හමා ආ නාසය පුබුදුවන සුළු ෂැම්පු වර්ගයක සුවඳ, ඈ වඩාත් උවමනාවෙන් අතින් අල්වාගත් දිනයක අතැඟිලිවල දැවටූ නිය ආලේපනයක පැහැය. මා උත්සාහ කළේ තවමත් ඔහුගේ හදවතේ ප්‍රතිසංස්කරණය වෙමින් පවතින කිරීටක ධමනියක ඒ එක් සලකුණක හෝ අංශු මාත්‍රික මතකයක් තිබේ නම් එය පිරික්සීමටය. ඔහුට ඇය ගැන සිහිපත් කරවමින් ඔහුගේ දෑස් ලැජ්ජාවෙන් හැකිළී යනු දැකීම තරම් ඛේදනීය වින්දනයක් අප අතර ගෙවුණු කාලය තුල අන් කවර මොහොතකවත් මා විඳ නැත. එය පෙරදා රාත්‍රී ආහාරය සඳහා යහමින් සැමන් එක්කර සෑදූ සැන්විච්වලින් කපා ඉවත් කළ පරණ වූ පාන් වාටියක් උදෑසන ආහාරය ලෙස ස්ට්‍රෝබෙරි ජෑම් තවරා කන විට පිළුණු සැමන් කෑල්ලක් සමඟ ස්ට්‍රෝබෙරි රස මුසු ව දැන්නෙන්නාක් වැනි ය. ඔහුගේ ජීවිතයේ පිළුණු වූ කතන්දර අසන සෑම විටක ම ඒ සැමන් ගඳ මගේ නාසය හකුලා දමයි.</p>
+                <p>නමුත් මගේ ඉපැරණි දුහුවිලි සුවඳ පෙම්වතාගේ පැදුරටත් නොකියා හද විමන් දොරින් පැන යාම ගැන යළි යළිත් නොවිමසන්නට ඔහු කටයුතු කළේ රජරට වියළි කාලගුණය කඳුකරයේ සීතල මීදුම දිය කර මහවැලිය උතුරවන්නට තරම් හෙතෙම අමානුෂික නොවන නිසා ද, නැත්නම් ඔහුට හදවත තවමත් රජරට සිට මන්දගාමීව ගැහෙන අපිළිවෙල කෙල්ලකු අමනාප වූ විට යාළු කරගන්නේ ගස් කජු කැබලි මුසු කළ චොක්ලට් කේක් කැබැල්ලකින් ද, චීස් බේරෙන දුම් දමන පීසා කැබැල්ලකින් ද කියාවත් හාංකවිසියක මතකයක් නැති බැවින්දැයි මා නොදනිමි.</p>
+                <p>ඇය ගැන මතකය හාර ඇවිස්සීම තරම් පිළුණු සැමන් සමඟ ස්ට්‍රෝබෙරි ජෑම් කෑමක් තවත් නැති වුවත්, ඔහුට මේ අපිළිවෙල කෙල්ලගේ නමේ කොටසක්වත් සිහි කරවීමට ඒ පාන් වාටියේ නීරස මා ඉමිහිරිව විඳිමින් සිටියි.</p>
+                <p>ඊර්ෂ්‍යාව ද ඒ පාන් වාටියේ මිහිර තරම්ම සුන්දර ය.</p>
+              </details>
+            </div>
+          </article>
+        </div>
+
+        <div class="additional-manuscript">
+          <a class="document-card" href="documents/anthima-wathawata-eka-sarayak.pdf" target="_blank" rel="noopener"><span class="document-icon">PDF</span><div><h3 lang="si">අන්තිම වතාවට එක සැරයක්</h3><p>Additional original manuscript</p></div><span class="document-action" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
