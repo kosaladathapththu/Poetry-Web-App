@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poem — Poet Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&family=Noto+Serif+Sinhala:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/marked@9.1.6/marked.min.js"></script>
+  <style>
+    /* ── Top back link bar ── */
+    .top-bar {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* ── Two-column layout ── */
+    .poem-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - var(--nav-h) - 60px);
+    }
+
+    /* ── LEFT: photo column ── */
+    .poem-photo-col {
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow: hidden;
+      background: var(--cream-dark);
+      display: none; /* hidden until photo loads */
+    }
+    .poem-photo-col.has-photo { display: block; }
+
+    .poem-photo-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* Photo caption overlay at bottom */
+    .photo-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 3rem 1.5rem 1.5rem;
+      background: linear-gradient(to top, rgba(30,15,5,0.55), transparent);
+      color: rgba(255,255,255,0.75);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      display: none;
+    }
+
+    /* ── RIGHT: poem content column ── */
+    .poem-content-col {
+      padding: 3.5rem 3rem 5rem;
+      max-width: 600px;
+    }
+
+    /* When no photo — center the content */
+    .poem-layout.no-photo {
+      grid-template-columns: 1fr;
+    }
+    .poem-layout.no-photo .poem-content-col {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 6rem;
+    }
+
+    /* ── Language toggle ── */
+    .lang-toggle {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .lang-btn {
+      padding: 0.4rem 1.1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn.active { background: var(--brown); color: var(--white); }
+    .lang-btn:first-child { border-right: 1px solid var(--border); }
+    #langToggle { display: none; }
+
+    /* ── Meta ── */
+    .poem-meta .tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    #poemTitle { margin-bottom: 0.4rem; }
+    #poemTitleSi {
+      display: none;
+      font-family: 'Noto Serif Sinhala', serif;
+      font-size: 1.3rem;
+      color: var(--brown-light);
+      margin-bottom: 0.4rem;
+    }
+    .poem-meta .date { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── Poem body ── */
+    #poemBody {
+      margin-top: 2.5rem;
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      line-height: 2.1;
+      color: var(--ink);
+    }
+    #poemBody.sinhala {
+      font-family: 'Noto Serif Sinhala', serif;
+      font-size: 1.1rem;
+      line-height: 2.5;
+    }
+    #poemBody p { margin: 0 0 1.8rem; }
+    #poemBody p:last-child { margin-bottom: 0; }
+
+    /* ── Poet's note ── */
+    #poetNote {
+      display: none;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .note-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    #poetNote p { font-style: italic; font-size: 0.9rem; }
+
+    /* ── States ── */
+    #loadingMsg { color: var(--muted); font-style: italic; padding: 2rem 0; }
+    #errorMsg   { color: var(--accent); padding: 2rem 0; display: none; }
+
+    /* ── Responsive: stack on mobile ── */
+    @media (max-width: 760px) {
+      .poem-layout {
+        grid-template-columns: 1fr;
+      }
+      .poem-photo-col {
+        position: relative;
+        height: 55vw;
+        min-height: 240px;
+        max-height: 380px;
+      }
+      .poem-content-col {
+        padding: 2.5rem 1.5rem 4rem;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Poet Name</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="poems.html" class="active">Poems</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Back link -->
+  <div class="top-bar">
+    <a href="poems.html" class="back-link">← All Poems</a>
+  </div>
+
+  <!-- Two-column layout -->
+  <div class="poem-layout no-photo" id="poemLayout">
+
+    <!-- LEFT: photo (shown only when poem has a photo) -->
+    <div class="poem-photo-col" id="photoCol">
+      <img id="poemPhoto" src="" alt="" />
+      <div class="photo-caption" id="photoCaption"></div>
+    </div>
+
+    <!-- RIGHT: poem content -->
+    <div class="poem-content-col">
+
+      <!-- Language toggle -->
+      <div class="lang-toggle" id="langToggle">
+        <button class="lang-btn active" id="btnEn" onclick="setLang('en')">English</button>
+        <button class="lang-btn"        id="btnSi" onclick="setLang('si')">සිංහල</button>
+      </div>
+
+      <!-- Meta -->
+      <div class="poem-meta">
+        <p class="tag" id="poemCategory"></p>
+        <h1 id="poemTitle">Loading…</h1>
+        <p id="poemTitleSi"></p>
+        <div class="divider"></div>
+        <p class="date" id="poemDate"></p>
+      </div>
+
+      <p id="loadingMsg">Loading poem…</p>
+      <p id="errorMsg">Poem not found.</p>
+
+      <div id="poemBody"></div>
+
+      <div id="poetNote">
+        <p class="note-label">Poet's Note</p>
+        <p id="noteText"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Poet Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('navToggle')
+      .addEventListener('click', () =>
+        document.getElementById('navLinks').classList.toggle('open'));
+
+    /* ── Parse front-matter + bilingual body ── */
+    function parseMd(raw) {
+      const fm = {};
+      let body = raw, body_si = '';
+
+      if (raw.startsWith('---')) {
+        const end = raw.indexOf('\n---', 3);
+        if (end !== -1) {
+          const block = raw.slice(3, end).trim();
+          body = raw.slice(end + 4).trim();
+          block.split('\n').forEach(line => {
+            const col = line.indexOf(':');
+            if (col === -1) return;
+            const k = line.slice(0, col).trim();
+            let v = line.slice(col + 1).trim().replace(/^"|"$/g, '');
+            if (v === 'true') v = true;
+            if (v === 'false') v = false;
+            fm[k] = v;
+          });
+        }
+      }
+
+      const siMarker = body.indexOf('\n---si---\n');
+      if (siMarker !== -1) {
+        body_si = body.slice(siMarker + 10).trim();
+        body    = body.slice(0, siMarker).trim();
+      }
+
+      return { fm, body, body_si };
+    }
+
+    function fmtDate(s) {
+      if (!s) return '';
+      return new Date(s + 'T00:00:00')
+        .toLocaleDateString('en-GB', { year: 'numeric', month: 'long' });
+    }
+
+    const catLabels = {
+      nature:'Nature', longing:'Longing', memory:'Memory',
+      love:'Love', life:'Life', other:'Other'
+    };
+
+    let enBody = '', siBody = '';
+
+    function renderPoem(lang) {
+      const el  = document.getElementById('poemBody');
+      const src = lang === 'si' ? siBody : enBody;
+      el.innerHTML = marked.parse(src || '');
+      el.classList.toggle('sinhala', lang === 'si');
+
+      /* Also swap title to Sinhala if available */
+      const siTitle = document.getElementById('poemTitleSi');
+      siTitle.style.display = (lang === 'si' && siTitle.textContent) ? 'block' : 'none';
+    }
+
+    function setLang(lang) {
+      document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+      document.getElementById('btnSi').classList.toggle('active', lang === 'si');
+      renderPoem(lang);
+    }
+
+    /* ── Load poem ── */
+    async function loadPoem() {
+      const slug = new URLSearchParams(location.search).get('slug');
+      if (!slug) { showError(); return; }
+
+      try {
+        const res = await fetch(`_poems/${slug}.md`);
+        if (!res.ok) { showError(); return; }
+        const { fm, body, body_si } = parseMd(await res.text());
+
+        enBody = body;
+        siBody = body_si;
+
+        /* Title */
+        document.title = (fm.title || 'Poem') + ' — Poet Name';
+        document.getElementById('poemTitle').textContent    = fm.title || '';
+        document.getElementById('poemCategory').textContent = catLabels[fm.category] || fm.category || '';
+        document.getElementById('poemDate').textContent     = fmtDate(fm.date);
+
+        /* Sinhala title */
+        if (fm.title_si) {
+          document.getElementById('poemTitleSi').textContent = fm.title_si;
+        }
+
+        /* Bilingual toggle */
+        if (siBody) document.getElementById('langToggle').style.display = 'inline-flex';
+
+        /* ── Photo ── */
+        if (fm.image) {
+          const layout   = document.getElementById('poemLayout');
+          const photoCol = document.getElementById('photoCol');
+          const img      = document.getElementById('poemPhoto');
+
+          img.src = fm.image;
+          img.alt = fm.title || 'Poem photo';
+          photoCol.classList.add('has-photo');
+          layout.classList.remove('no-photo');
+
+          /* Optional: show photo caption if poet added one */
+          if (fm.image_caption) {
+            const cap = document.getElementById('photoCaption');
+            cap.textContent = fm.image_caption;
+            cap.style.display = 'block';
+          }
+        }
+
+        /* Poet's note */
+        if (fm.note) {
+          document.getElementById('noteText').textContent = fm.note;
+          document.getElementById('poetNote').style.display = 'block';
+        }
+
+        document.getElementById('loadingMsg').style.display = 'none';
+        renderPoem('en');
+
+      } catch(e) { showError(); }
+    }
+
+    function showError() {
+      document.getElementById('loadingMsg').style.display = 'none';
+      document.getElementById('errorMsg').style.display   = 'block';
+    }
+
+    loadPoem();
+  </script>
+</body>
+</html>

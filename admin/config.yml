@@ -1,0 +1,97 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/poems"
+public_folder: "/images/poems"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: "poems"
+    label: "Poems"
+    label_singular: "Poem"
+    folder: "_poems"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - label: "Title (English)"
+        name: "title"
+        widget: "string"
+        hint: "The poem title in English"
+
+      - label: "Title (Sinhala)"
+        name: "title_si"
+        widget: "string"
+        required: false
+        hint: "ශීර්ෂය සිංහලෙන් — optional"
+
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_label: "Date"
+        time_label: false
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Nature / ස්වභාවය",  value: "nature"  }
+          - { label: "Longing / ආශාව",     value: "longing" }
+          - { label: "Memory / මතකය",      value: "memory"  }
+          - { label: "Love / ආදරය",         value: "love"    }
+          - { label: "Life / ජීවිතය",       value: "life"    }
+          - { label: "Other / වෙනත්",       value: "other"   }
+
+      - label: "Poem Photo"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "Upload a photo for this poem. It will appear side-by-side with the poem text."
+        media_library:
+          config:
+            multiple: false
+
+      - label: "Photo Caption"
+        name: "image_caption"
+        widget: "string"
+        required: false
+        hint: "Optional short caption shown over the photo (e.g. location or mood)"
+
+      - label: "Featured on Home Page?"
+        name: "featured"
+        widget: "boolean"
+        default: false
+
+      - label: "Short Excerpt (English)"
+        name: "excerpt"
+        widget: "text"
+        required: false
+        hint: "1–2 lines shown on the poems list page"
+
+      - label: "Short Excerpt (Sinhala)"
+        name: "excerpt_si"
+        widget: "text"
+        required: false
+        hint: "කෙටි උපුටා ගැනීම සිංහලෙන්"
+
+      - label: "Poem (English)"
+        name: "body"
+        widget: "markdown"
+        required: false
+        hint: "Write the English poem here. Use blank lines between stanzas."
+
+      - label: "Poem (Sinhala)"
+        name: "body_si"
+        widget: "markdown"
+        required: false
+        hint: "සිංහල කවිය මෙහි ලියන්න. පදාර්ථ අතර හිස් රේඛා භාවිතා කරන්න."
+
+      - label: "Poet's Note"
+        name: "note"
+        widget: "text"
+        required: false
+        hint: "Optional short note about this poem"

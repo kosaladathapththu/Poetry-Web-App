@@ -1,0 +1,33 @@
+[
+  {
+    "slug": "morning-light",
+    "title": "Morning Light",
+    "title_si": "උදෑසන ආලෝකය",
+    "date": "2025-03-01",
+    "category": "nature",
+    "featured": true,
+    "bilingual": true,
+    "excerpt": "The sun arrives not like a conqueror but like a question…",
+    "excerpt_si": "හිරු පැමිණෙන්නේ ජේතෘයෙකු ලෙස නොව ප්‍රශ්නයක් ලෙසය…"
+  },
+  {
+    "slug": "the-waiting",
+    "title": "The Waiting",
+    "title_si": "",
+    "date": "2025-02-10",
+    "category": "longing",
+    "featured": true,
+    "bilingual": false,
+    "excerpt": "In doorways we become the space between arrival and departure…"
+  },
+  {
+    "slug": "roots",
+    "title": "Roots",
+    "title_si": "මූල",
+    "date": "2025-01-15",
+    "category": "memory",
+    "featured": true,
+    "bilingual": true,
+    "excerpt": "My grandmother's hands were maps of a country I never knew…"
+  }
+]
