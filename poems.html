@@ -62,8 +62,14 @@
     .document-action { display:grid; place-items:center; width:38px; height:38px; border-radius:10px; color:var(--royal); background:var(--sky); font-size:1.1rem; }
 
     .manuscript-stack { display:flex; flex-direction:column; gap:1.5rem; }
-    .reader-card { position:relative; padding:clamp(1.5rem,4vw,3rem); border:1px solid var(--border); border-radius:24px; background:rgba(255,255,255,.88); box-shadow:var(--shadow-sm); overflow:hidden; }
+    .reader-card { position:relative; display:grid; grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr); border:1px solid var(--border); border-radius:24px; background:rgba(255,255,255,.88); box-shadow:var(--shadow-sm); overflow:hidden; }
     .reader-card::after { content:""; position:absolute; top:0; left:0; width:6px; height:100%; background:linear-gradient(var(--royal-bright),var(--royal)); }
+    .reader-card:nth-child(even) { grid-template-columns:minmax(0,1.28fr) minmax(280px,.72fr); }
+    .reader-card:nth-child(even) .reader-art { order:2; }
+    .reader-art { position:relative; min-height:620px; margin:0; background:var(--navy); overflow:hidden; }
+    .reader-art img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+    .reader-card:hover .reader-art img { transform:scale(1.025); }
+    .reader-content { display:flex; flex-direction:column; justify-content:center; padding:clamp(1.5rem,4vw,3rem); }
     .reader-heading { display:flex; align-items:start; justify-content:space-between; gap:1.5rem; margin-bottom:2rem; padding-bottom:1.35rem; border-bottom:1px solid var(--border); }
     .reader-kicker { color:var(--royal); font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
     .reader-heading h3 { margin:.5rem 0 0; font-family:"Noto Sans Sinhala",sans-serif; font-size:clamp(1.35rem,3vw,2rem); line-height:1.55; letter-spacing:0; }
@@ -92,6 +98,9 @@
       .poem-feature:nth-child(even) .poem-poster { order:0; }
       .poem-poster { min-height:min(120vw,560px); }
       .poem-copy { padding:2rem 1.35rem 2.4rem; }
+      .reader-card,.reader-card:nth-child(even) { grid-template-columns:1fr; }
+      .reader-card:nth-child(even) .reader-art { order:0; }
+      .reader-art { min-height:min(120vw,540px); }
       .reader-heading { flex-direction:column; }
       .reader-poem { columns:1; }
     }
@@ -127,7 +136,7 @@
         </div>
 
         <div class="publication-grid">
-          <article class="poem-feature poem-feature--midnight">
+          <article class="poem-feature poem-feature--midnight" id="paramal-sanwada">
             <button class="poem-poster" type="button" data-full="images/poems/paramal-sanwada-art.png" aria-label="පරමල් සංවාද පෝස්ටරය විශාල කර බලන්න">
               <img src="images/poems/paramal-sanwada-art.png" alt="පරමල් සංවාද කවිය සඳහා නිර්මාණය කළ පන්සල් මල් පූජාවක දෘශ්‍යය" loading="lazy" />
               <span class="expand-mark" aria-hidden="true">↗</span>
@@ -152,7 +161,7 @@
             </div>
           </article>
 
-          <article class="poem-feature poem-feature--mono">
+          <article class="poem-feature poem-feature--mono" id="kahawanu-amawaka">
             <button class="poem-poster" type="button" data-full="images/poems/kahawanu-amawaka-art.png" aria-label="කහවනු සහ අමාවක පෝස්ටරය විශාල කර බලන්න">
               <img src="images/poems/kahawanu-amawaka-art.png" alt="කහවනු සහ අමාවක කවිය සඳහා නිර්මාණය කළ වැසි රාත්‍රියක දෘශ්‍යය" loading="lazy" />
               <span class="expand-mark" aria-hidden="true">↗</span>
@@ -181,7 +190,7 @@
             </div>
           </article>
 
-          <article class="poem-feature poem-feature--paper">
+          <article class="poem-feature poem-feature--paper" id="guru-para">
             <button class="poem-poster" type="button" data-full="images/poems/guru-para-art.png" aria-label="ගුරු පාර පෝස්ටරය විශාල කර බලන්න">
               <img src="images/poems/guru-para-art.png" alt="ගුරු පාර කවිය සඳහා නිර්මාණය කළ වැසි වැටුණු ගුරු පාරක දෘශ්‍යය" loading="lazy" />
               <span class="expand-mark" aria-hidden="true">↗</span>
@@ -198,11 +207,11 @@
 වැහි පොදේ එතීගෙන
 දැනෙන අන්තිම දවස
 බොරළු සිප නැගි සුවඳ</p>
-              <p class="poem-credit">කර්තෘ: අනුදි නිල්මා<br />වෛද්‍ය පීඨය, පේරාදෙණිය විශ්වවිද්‍යාලය</p>
+              <p class="poem-credit">කර්තෘ: ආර්. අනුදි නිල්මා විජයප්‍රිය<br />වෛද්‍ය පීඨය, පේරාදෙණිය විශ්වවිද්‍යාලය</p>
             </div>
           </article>
 
-          <article class="poem-feature poem-feature--ember">
+          <article class="poem-feature poem-feature--ember" id="kuli-garbhashaya">
             <button class="poem-poster" type="button" data-full="images/poems/kuli-garbhashaya-art.png" aria-label="කුලී ගර්භාෂ පෝස්ටරය විශාල කර බලන්න">
               <img src="images/poems/kuli-garbhashaya-art.png" alt="කුලී ගර්භාෂ කවිය සඳහා නිර්මාණය කළ රතු නූල් සහ කාසි සහිත සංකේතාත්මක දෘශ්‍යය" loading="lazy" />
               <span class="expand-mark" aria-hidden="true">↗</span>
@@ -225,15 +234,16 @@
     <section class="section-sm" style="background:var(--cream-dark);">
       <div class="container">
         <div class="collection-head">
-          <div><p class="section-label">Verified from originals</p><h2>Manuscripts</h2></div>
-          <p>The text below was checked against the original PDF and Word documents. The source files remain available beside each work.</p>
+          <div><p class="section-label">More original writing</p><h2>Poetry & Prose</h2></div>
+          <p>Original writing by R.Anudi Nilma Wijayapriya, presented with visual artwork created for each piece.</p>
         </div>
 
         <div class="manuscript-stack">
-          <article class="reader-card" lang="si">
+          <article class="reader-card" id="higamanaka-kasi" lang="si">
+            <figure class="reader-art"><img src="images/poems/higamanaka-kasi-art.png" alt="හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු කවිය සඳහා කාසි, වියළි කොළ සහ වැසි තෙත් පාලමක් දැක්වෙන දෘශ්‍යය" loading="lazy" /></figure>
+            <div class="reader-content">
             <header class="reader-heading">
-              <div><span class="reader-kicker">Poem · PDF manuscript</span><h3>හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු</h3></div>
-              <a class="source-link" href="documents/higamanaka-ithuru-wunu-thamba-kasi-ahuru.pdf" target="_blank" rel="noopener">මුල් PDF එක ↗</a>
+              <div><span class="reader-kicker">Original poem · 05</span><h3>හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු</h3></div>
             </header>
             <div class="reader-poem">
               <p class="stanza">හිඟමනක ඉතුරු වුණු තඹ කාසි අහුරු
@@ -251,12 +261,14 @@
 කඩල ගොටු කඩදාසි කවියක්ව මියැදෙන්න
 තෙමී නොම හිර කරන් මෝය කට වැතිරූ</p>
             </div>
+            </div>
           </article>
 
-          <article class="reader-card" lang="si">
+          <article class="reader-card" id="alu-mathata" lang="si">
+            <figure class="reader-art"><img src="images/poems/alu-mathata-art.png" alt="අළු මතට පැන් වඩන කවිය සඳහා පා සළඹක්, පැන් බඳුනක් සහ නිල් මලක් දැක්වෙන දෘශ්‍යය" loading="lazy" /></figure>
+            <div class="reader-content">
             <header class="reader-heading">
-              <div><span class="reader-kicker">Poem · PDF manuscript</span><h3>අළු මතට — පැන් වඩන</h3></div>
-              <a class="source-link" href="documents/alu-mathata-pan-wadana.pdf" target="_blank" rel="noopener">මුල් PDF එක ↗</a>
+              <div><span class="reader-kicker">Original poem · 06</span><h3>අළු මතට — පැන් වඩන</h3></div>
             </header>
             <div class="reader-poem">
               <p class="stanza">අළු මතට — පැන් වඩන
@@ -275,12 +287,14 @@
 බිඳුණු ඉහිරුණු සිහින මුතු පොට
 තව ම ඇති සරසවිය පාමුල</p>
             </div>
+            </div>
           </article>
 
-          <article class="reader-card reader-card--prose" lang="si">
+          <article class="reader-card reader-card--prose" id="umathu-amawaka" lang="si">
+            <figure class="reader-art"><img src="images/poems/umathu-amawaka-art.png" alt="උමතු අමාවක නිර්මාණය සඳහා පේරාදෙණි පාලම, මහවැලි ගඟ සහ බිඳුණු කණ්ණාඩියක් සහිත යතුරුපැදියක් දැක්වෙන රාත්‍රී දෘශ්‍යය" loading="lazy" /></figure>
+            <div class="reader-content">
             <header class="reader-heading">
-              <div><span class="reader-kicker">Short prose · Word manuscript</span><h3>උමතු අමාවක</h3></div>
-              <a class="source-link" href="documents/umathu-amawaka.docx" download>DOCX බාගන්න ↓</a>
+              <div><span class="reader-kicker">Original short prose · 07</span><h3>උමතු අමාවක</h3></div>
             </header>
             <div class="prose-copy">
               <p>වෙහෙසකර දීර්ඝ සති කිහිපයකට පසු පැති කණ්ණාඩිය බිඳී ගිය මෝටර් සයිකලය පේරාදෙණි පාලමේ කෙළවරක නවතා අමාවක දවසක ගලන්නට අමතක වුණු මහවැලිය දෙස බලා සිටීම දැන් වසරක පමණ සිට අප දෙදෙනාට පුරුද්දකට ගොස් ඇත. අන්ධකාරය කපාගෙන නිස්කලංක තණබිමක් සොයා ඇදෙන මළානික කණාමැදිරි එළිවල රස්නය අතුරුදන් කරමින් හමන ශීතල සුළඟට ඉලිප්පිනු ඔහුගේ රළු දෑත්වල රෝම කූප දෙස බලා සිටීම නියං සායකින් වියළී ගිය දොළ පාරක මඟ රැඳුණු කටු කෝටු දෙස බලා සිටීම තරම් මූසලය.</p>
@@ -294,11 +308,8 @@
                 <p>ඊර්ෂ්‍යාව ද ඒ පාන් වාටියේ මිහිර තරම්ම සුන්දර ය.</p>
               </details>
             </div>
+            </div>
           </article>
-        </div>
-
-        <div class="additional-manuscript">
-          <a class="document-card" href="documents/anthima-wathawata-eka-sarayak.pdf" target="_blank" rel="noopener"><span class="document-icon">PDF</span><div><h3 lang="si">අන්තිම වතාවට එක සැරයක්</h3><p>Additional original manuscript</p></div><span class="document-action" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
